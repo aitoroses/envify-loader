@@ -1,6 +1,6 @@
 var envify = require('envify');
 
-module.exports = function (source) {
+module.exports = function (source, inputSourceMap) {
   var done = this.async();
   var stream = envify();
   var result = '';
@@ -11,7 +11,7 @@ module.exports = function (source) {
     result += chunk;
   })
   .on('end', function () {
-    done(null, result);
+    done(null, result, inputSourceMap)
   })
 
   stream.write(source)
